@@ -27,3 +27,16 @@ class ScanRecord: Object {
     @Persisted var sugarValue: Double
     @Persisted var food: LocalFood?
 }
+
+
+# CSV导出建议
+func exportCSV(filter: ExportFilter) -> URL? {
+    let records = realm.objects(ScanRecord.self)
+        .filter("date BETWEEN {%@, %@}", filter.startDate, filter.endDate)
+    
+    let csvString = records.map { record in
+        "\(record.date),\(record.food?.name ?? "自定义"),\(record.sugarValue)g"
+    }.joined(separator: "\n")
+    
+    return saveToTempFile(csvString) // 实现文件存储
+}
