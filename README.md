@@ -1,4 +1,4 @@
-# Sugar-Mate
+# Sugar Scope
 # 控糖助手 iOS 终极蓝图
 
 [!TIP]
@@ -28,8 +28,8 @@ class ScanRecord: Object {
     @Persisted var food: LocalFood?
 }
 
-
-# CSV导出建议
+# CSV output suggestion
+``` swift
 func exportCSV(filter: ExportFilter) -> URL? {
     let records = realm.objects(ScanRecord.self)
         .filter("date BETWEEN {%@, %@}", filter.startDate, filter.endDate)
